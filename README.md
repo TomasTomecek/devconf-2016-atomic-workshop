@@ -1,5 +1,10 @@
-# devconf-2016-atomic-workshop
-Demos for our Atomic workshop at DevConf 2016
+# DevConf 2016 Atomic Workshop
+
+Run several containers:
+
+ * OpenShift origin
+ * `cat`
+ * bash with nested process
 
 ## Docker News
 
@@ -32,6 +37,26 @@ man docker-daemon
 
 
 ### 1.9
+
+
+#### `docker network`
+
+
+```
+docker build --tag=networking-demo ./networks
+docker run --name=netw networking-demo
+docker exec -ti netw bash
+curl -v -XHEAD 0.0.0.0:8000
+```
+
+https://github.com/docker/docker/issues/19448
+
+```
+docker network create -d bridge kiwi
+docker run --name=netw --net=kiwi networking-demo
+docker run -ti --rm --net=kiwi --name orange --link netw fedora bash
+```
+
 
 #### `docker volume`
 
@@ -89,3 +114,5 @@ docker kill --signal=usr1 signal
 docker stats
 ```
 
+
+### 1.10
