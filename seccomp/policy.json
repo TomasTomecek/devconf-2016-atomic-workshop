@@ -1,0 +1,17 @@
+{
+    "defaultAction": "SCMP_ACT_ALLOW",
+    "syscalls": [
+        {
+            "name": "getcwd",
+            "action": "SCMP_ACT_ERRNO"
+        },
+        {
+            "name": "chown",
+            "action": "SCMP_ACT_KILL"
+        },
+        {
+            "name": "chmod",
+            "action": "SCMP_ACT_ERRNO"
+        }
+    ]
+}
