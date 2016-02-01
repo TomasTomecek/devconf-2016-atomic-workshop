@@ -175,6 +175,10 @@ docker stats
 
 #### seccomp
 
+```
+man syscalls
+```
+
 seccomp is in place by default!
 
 
