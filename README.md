@@ -248,3 +248,14 @@ https://github.com/docker/docker/blob/master/docs/reference/commandline/daemon.m
 You may reload with `SIGHUP`.
 
 ![config live reload](https://cloud.githubusercontent.com/assets/1050/12132395/1b06cd5a-b3d0-11e5-84ee-dfa2ab041278.gif)
+
+
+#### read only containers
+
+http://www.projectatomic.io/blog/2015/12/making-docker-images-write-only-in-production/
+
+`/etc` will be tmpfs mount (which means that all data are gone after process restart).
+
+```
+docker run --read-only -ti --tmpfs /run --tmpfs /etc --tmpfs /tmp fedora bash
+```
