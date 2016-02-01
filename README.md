@@ -3,12 +3,36 @@
 Run several containers:
 
  * OpenShift origin
+   ```shell
+   docker run -d --name "origin" \
+     --privileged --pid=host --net=host \
+     -v /:/rootfs:ro -v /var/run:/var/run:rw -v /sys:/sys -v /var/lib/docker:/var/lib/docker:rw \
+     -v /var/lib/openshift/openshift.local.volumes:/var/lib/openshift/openshift.local.volumes \
+     openshift/origin:v1.0.6 start
+   ```
+
  * `cat`
+   ```shell
+   docker run -i fedora cat
+   ```
+
  * bash with nested process
+   ```shell
+   docker run -ti fedora bash
+   sleep 12345 &
+   bash
+   sleep 123456 &
+   sleep 1234 &
+   ```
+
 
 ## Docker News
 
+
 ### 1.8
+
+Not much news on UI side, lots of work on backend and plugins.
+
 
 #### `docker cp`
 
@@ -30,6 +54,8 @@ cat LICENSE
 
 #### `docker daemon`
 
+`-d` turned into a command `daemon`, this also results into different place for `--help`.
+
 ```shell
 man docker
 man docker-daemon
@@ -41,31 +67,48 @@ man docker-daemon
 
 #### `docker network`
 
+Networking has its own UI now. The demo is about creating network and adding containers to it in runtime.
+
+We will create `bridge` network, `overlay` networks are much more complicated.
+
+We first create the network:
+
+```
+docker network create -d bridge fruits
+```
+
+Create webserver now:
 
 ```
 docker build --tag=networking-demo ./networks
-docker run --name=netw networking-demo
-docker exec -ti netw bash
+docker run --name=orange --net=fruits networking-demo
+docker exec -ti orange bash
 curl -v -XHEAD 0.0.0.0:8000
 ```
 
-https://github.com/docker/docker/issues/19448
+Let's create new container and try to connect to `orange`:
 
 ```
-docker network create -d bridge kiwi
-docker run --name=pomelo --net=kiwi networking-demo
-docker run -ti --rm --net=kiwi --name orange fedora bash
+docker run -ti --rm --name pomelo fedora bash
+curl -v -XHEAD http://orange:8000
 ```
 
-or
+how about now?
 
 ```
-docker network connect kiwi orange
-docker network connect kiwi pomelo
+docker network connect fruits pomelo
+```
+
+Bumped into some issues?
+
+```
+docker network inspect fruits
 ```
 
 
 #### `docker volume`
+
+At the same time volumes have now UI too.
 
 ```shell
 docker volume ls
@@ -75,12 +118,15 @@ docker volume inspect mango
 docker volume rm mango
 ```
 
-`inspect` doesn't say which conatiners use the volume.
+`inspect` doesn't say which conatiners use the volume. You also need to run
+container if you want to know about content of a volume.
 
 
 #### build arguments
 
 https://docs.docker.com/engine/reference/builder/#arg
+
+Build time arguments (as environment variables) which don't leak to final image
 
 ```shell
 docker build --build-arg fruit=watermelon --tag=watermelon ./build_args
@@ -113,6 +159,8 @@ docker kill --signal=int signal
 docker kill --signal=term signal
 docker kill --signal=usr1 signal
 ```
+
+You can also specify stopsignal in `run`.
 
 
 #### `docker stats`
