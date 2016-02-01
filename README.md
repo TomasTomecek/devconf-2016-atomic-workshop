@@ -54,7 +54,7 @@ cat LICENSE
 
 #### `docker daemon`
 
-`-d` turned into a command `daemon`, this also results into different place for `--help`.
+`-d` turned into a command `daemon`, which means that `--help` can be found elsewhere:
 
 ```shell
 man docker
@@ -115,6 +115,7 @@ docker volume ls
 docker volume create --name mango
 docker run -ti -v mango:/mango fedora bash
 docker volume inspect mango
+docker cp mango:/mango .
 docker volume rm mango
 ```
 
@@ -180,6 +181,8 @@ seccomp is in place by default!
 https://github.com/docker/docker/blob/master/docs/security/seccomp.md
 https://github.com/opencontainers/specs/blob/master/config-linux.md#seccomp
 
+Using custom profile:
+
 ```
 vim seccomp/policy.json
 docker run --rm -it --security-opt seccomp:seccomp/policy.json fedora bash
@@ -188,10 +191,16 @@ touch /tmp/change_me
 chown root:root /tmp/change_me
 ```
 
+...to the max!
+
+```
+docker run --rm -it --security-opt seccomp:seccomp/hardcore-policy.json fedora bash
+```
+
 
 #### User Namespaces
 
-https://github.com/docker/docker/blob/7992b353c04b4214c28d5be6195b2703a52defb1/docs/reference/commandline/daemon.md#daemon-user-namespace-options
+https://github.com/docker/docker/blob/master/docs/reference/commandline/daemon.md#daemon-user-namespace-options
 
 Run `docker daemon` with `--userns-remap=default`.
 
