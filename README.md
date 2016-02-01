@@ -182,8 +182,8 @@ man syscalls
 seccomp is in place by default!
 
 
-https://github.com/docker/docker/blob/master/docs/security/seccomp.md 
-https://github.com/opencontainers/specs/blob/master/config-linux.md#seccomp
+https://github.com/docker/docker/blob/master/docs/security/seccomp.md  
+https://github.com/opencontainers/specs/blob/master/config-linux.md#seccomp  
 
 Using custom profile:
 
