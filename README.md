@@ -126,7 +126,10 @@ docker stats
 
 #### seccomp
 
-https://github.com/jfrazelle/docker/blob/831af89991edd442ef4eeb29fd01da576b04bcfc/docs/security/seccomp.md
+seccomp is in place by default!
+
+
+https://github.com/docker/docker/blob/master/docs/security/seccomp.md
 https://github.com/opencontainers/specs/blob/master/config-linux.md#seccomp
 
 ```
@@ -145,8 +148,8 @@ https://github.com/docker/docker/blob/7992b353c04b4214c28d5be6195b2703a52defb1/d
 Run `docker daemon` with `--userns-remap=default`.
 
 ```
-time="2016-01-31T01:07:15.321694705+01:00" level=info msg="User namespaces: ID ranges will be mapped to subuid/subgid ranges of: dockremap:dockremap" 
-time="2016-01-31T01:07:15.321787749+01:00" level=fatal msg="Error starting daemon: Can't create ID mappings: open /etc/subuid: no such file or directory" 
+time="2016-01-31T01:07:15.321694705+01:00" level=info msg="User namespaces: ID ranges will be mapped to subuid/subgid ranges of: dockremap:dockremap"
+time="2016-01-31T01:07:15.321787749+01:00" level=fatal msg="Error starting daemon: Can't create ID mappings: open /etc/subuid: no such file or directory"
 ```
 
 Fix `/etc/sub{uid,gid}
@@ -162,8 +165,8 @@ dockremap:165536:65536
 ```
 
 ```
-time="2016-01-31T01:08:30.143584027+01:00" level=info msg="User namespaces: ID ranges will be mapped to subuid/subgid ranges of: dockremap:dockremap" 
-time="2016-01-31T01:08:30.143661722+01:00" level=debug msg="Creating user namespaced daemon root: /var/lib/docker/165536.165536" 
+time="2016-01-31T01:08:30.143584027+01:00" level=info msg="User namespaces: ID ranges will be mapped to subuid/subgid ranges of: dockremap:dockremap"
+time="2016-01-31T01:08:30.143661722+01:00" level=debug msg="Creating user namespaced daemon root: /var/lib/docker/165536.165536"
 ```
 
 ```
@@ -174,3 +177,13 @@ cat etc/shadow
 
 
 #### daemon config
+
+https://github.com/docker/docker/blob/master/docs/reference/commandline/daemon.md#daemon-configuration-file
+
+```
+--config-file=my.custom.config.json
+```
+
+You may reload with `SIGHUP`.
+
+![config live reload](https://cloud.githubusercontent.com/assets/1050/12132395/1b06cd5a-b3d0-11e5-84ee-dfa2ab041278.gif)
