@@ -259,5 +259,5 @@ http://www.projectatomic.io/blog/2015/12/making-docker-images-write-only-in-prod
 `/etc` will be tmpfs mount (which means that all data are gone after process restart).
 
 ```
-docker run --read-only -ti --tmpfs /run --tmpfs /etc --tmpfs /tmp fedora bash
+docker run --read-only -ti --tmpfs /run --tmpfs /etc --tmpfs --name=pear /tmp fedora bash
 ```
