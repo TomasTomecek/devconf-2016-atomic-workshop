@@ -39,7 +39,7 @@ Not much news on UI side, lots of work on backend and plugins.
 You can copy files and directories between (even stopped) containers and your host system.
 
 ```shell
-docker create -ti --name=banana fedora bash
+docker run -d -ti --name=banana fedora bash
 docker cp LICENSE banana:/
 docker attach banana
 ```
@@ -47,6 +47,7 @@ docker attach banana
 In other terminal:
 
 ```shell
+rm LICENSE
 docker cp banana:/ LICENSE
 cat LICENSE
 ```
@@ -119,7 +120,7 @@ docker cp mango:/mango .
 docker volume rm mango
 ```
 
-`inspect` doesn't say which conatiners use the volume. You also need to run
+`inspect` doesn't say which containers use the volume. You also need to run
 container if you want to know about content of a volume.
 
 
@@ -141,6 +142,7 @@ Run concurrently and ^c the latter one
 
 ```shell
 docker pull centos:7
+docker pull projectatomic/atomicapp
 ```
 
 
