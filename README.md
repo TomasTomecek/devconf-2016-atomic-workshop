@@ -215,7 +215,7 @@ time="2016-01-31T01:07:15.321694705+01:00" level=info msg="User namespaces: ID r
 time="2016-01-31T01:07:15.321787749+01:00" level=fatal msg="Error starting daemon: Can't create ID mappings: open /etc/subuid: no such file or directory"
 ```
 
-Fix `/etc/sub{uid,gid}
+Fix `/etc/sub{uid,gid}`
 
 ```
 $ cat /etc/subuid
